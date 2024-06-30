@@ -1,7 +1,9 @@
 from flask import Flask, send_from_directory, request
+from flask_socketio import SocketIO, emit
 
 
 app = app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 
 @app.route('/')
@@ -9,9 +11,9 @@ def index():
     return send_from_directory("static/", "index.html")
 
 
-@app.route("/execute", methods=["GET", 'POST'])
-def execute():
-    json = request.json
-    print(json)
+@socketio.event
+def execute(message):
+    emit('result', message)
 
-    return {"ok": 1}
+
+socketio.run(app, allow_unsafe_werkzeug=True)
