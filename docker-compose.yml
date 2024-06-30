@@ -1,0 +1,16 @@
+version: "3.3"
+services:
+  web:
+    image: "aleqhub/alabuga_server:latest"
+    restart: always
+    ports:
+      - "32097:32097"
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - telegram
+  telegram:
+    image: "aleqhub/alabuga_telegram:latest"
+    restart: always
+    ports:
+      - "32098:32098"
