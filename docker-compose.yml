@@ -14,3 +14,12 @@ services:
     restart: always
     ports:
       - "32098:32098"
+  ollama:
+    image: "ollama/ollama"
+    volumes: 
+      - ollama_data:/root/.ollama
+    restart: always
+    ports:
+      - "11434:11434"
+volumes:
+  ollama_data:
